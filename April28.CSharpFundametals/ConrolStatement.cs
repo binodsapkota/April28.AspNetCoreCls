@@ -13,13 +13,18 @@ namespace April28.CSharpFundametals
             
         }
 
-        public void IfElseStatement()
+        public void IfElseStatement(int num=0,int num2=0)//params=> parameter
+                                              //int num=0 optional parameters
         {
-            int num = 10;
-            bool isValie = num > 0;
-            if (isValie)//num > 0 is condition,it returns bool
+
+            bool isPositive = num % 2 == 0;//if reminder is zero
+            if (isPositive)//num > 0 is condition,it returns bool
             {
                 Console.WriteLine("Positive number");
+            }
+            else
+            {
+                Console.WriteLine("Negetive number");
             }
         }
     }
