@@ -1,90 +1,49 @@
-﻿internal class Program
+﻿using April28.CSharpFundametals;
+using System.Net.Http.Json;
+
+internal class Program
 {
     //this is entry point of the application
     private static void Main(string[] args)
     {
-        //variables in c#
+        //ControlStatement controlStatement = new ControlStatement();
+        //controlStatement.IfElseStatement(num2:5);//argument//named argument  num2:5
 
-        //syntax
+        //controlStatement.SwitchExample(4);
 
-        //datatype variable_name=value
+        //write a condition to find the smallest number among two
+        // a and b
 
-        //let me creat a variable to store my name
+        //get user input
 
-        string myName = "binod Sapkota";
-        myName = null;
-        int? age = 34;//this question mark will make the variable nullable
-        //the same logic or syntax for all other datatype
-        age = null;
+        //Loops loops = new Loops();
+        //loops.PrimeNumber();
 
-        //timeand date
+        MethodExample example = new MethodExample("binod");
+        example.Greet();//calling method
 
-        DateTime? dob = new DateTime(1990, 04, 02);
-        dob = null;
+        MethodExample example1 = new MethodExample();
+        example1.Greet();
 
-        float a = 22f / 7f;
-        decimal b = 22m / 7m;
-        double c = 22d / 7d;
+        MethodExample example2 = new MethodExample("Ruja");
+        example2.Greet();
 
-        Console.WriteLine("float " + a);
-        Console.WriteLine("double " + c);
-        Console.WriteLine("decimal " + b);
-
-        bool isNepali = false;//it is use as logic or condition it returns/stores true or false
-
-        char charr = 'a';
-        int ascii = (int)charr;
-
-        Console.WriteLine(charr + " : ascii = " + ascii);
-
-        Console.WriteLine("my name is " + myName + ", i ma " + age + " years old." + " I was born on " + dob);
+        example.Add(1, 2);
+        example.Add(num1: 1, num2: 2);
+        example.Add(num2: 2, num1: 3);
 
 
-        //reference type
-        var varValue = "this is value";
+        var person= example.GetPerson();
+        Console.WriteLine($"{person.name} {person.age}");
+  
 
-        object obj = "this is a value in object";
-        object objInt = 12;
-        obj = objInt;
-        Console.WriteLine(obj);
-        Console.WriteLine(objInt);
+        Console.WriteLine("Please Enter Height of rectangle");
+        int.TryParse(Console.ReadLine(), out int height);
+        Console.WriteLine("Please Enter Width of rectangle");
+        int.TryParse(Console.ReadLine(), out int width);
 
-        dynamic dObj = "string value";
-        dObj = 12;
-
-        const double pi = 3.142;//value cant be alterd
-
-        int dayvalue =(int) Days.Sunday;
+        var rectangle = example.GetRectangle(out height,ref width,out double area);
+        Console.WriteLine($"Area: {rectangle.area} height {rectangle.height}, original Height {height}, Area {area}");
         
-       
-        //
     }
-    //enums
-
-    //week days 
-    //month
-    //gender
-    //
-
-    enum Days
-    {
-        Sunday=5, Monday=7, Tuesday=9, Wednesday=11, Thursday=13, Friday=15, Saturday=17
-    }
-
-    public enum Month
-    {
-        January = 1,
-        February,
-        March,
-        April,
-        May,
-        June,
-        July,
-        August,
-        September,
-        October,
-        November,
-        December
-    }
-
 }
