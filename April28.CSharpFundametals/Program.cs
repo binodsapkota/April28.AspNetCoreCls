@@ -15,8 +15,35 @@ internal class Program
         // a and b
 
         //get user input
+
+        //Loops loops = new Loops();
+        //loops.PrimeNumber();
+
+        MethodExample example = new MethodExample("binod");
+        example.Greet();//calling method
+
+        MethodExample example1 = new MethodExample();
+        example1.Greet();
+
+        MethodExample example2 = new MethodExample("Ruja");
+        example2.Greet();
+
+        example.Add(1, 2);
+        example.Add(num1: 1, num2: 2);
+        example.Add(num2: 2, num1: 3);
+
+
+        var person= example.GetPerson();
+        Console.WriteLine($"{person.name} {person.age}");
+  
+
+        Console.WriteLine("Please Enter Height of rectangle");
+        int.TryParse(Console.ReadLine(), out int height);
+        Console.WriteLine("Please Enter Width of rectangle");
+        int.TryParse(Console.ReadLine(), out int width);
+
+        var rectangle = example.GetRectangle(out height,ref width,out double area);
+        Console.WriteLine($"Area: {rectangle.area} height {rectangle.height}, original Height {height}, Area {area}");
         
-        Loops loops = new Loops();
-        loops.PrimeNumber();
     }
 }
