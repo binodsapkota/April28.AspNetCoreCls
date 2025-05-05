@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35707.178 d17.12
+VisualStudioVersion = 17.12.35707.178
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "April28.CSharpFundametals", "April28.CSharpFundametals\April28.CSharpFundametals.csproj", "{1D3EBC0E-ECEC-4CFA-A929-CA685678371A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternalExamplePrj", "InternalExamplePrj\InternalExamplePrj.csproj", "{8D72D7D4-0C9B-4889-88C2-4C2BAC4CB55C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InheritanceAndPolymorphism", "InheritanceAndPolymorphism\InheritanceAndPolymorphism.csproj", "{9402E7D0-BFCF-4D22-98D6-0C8C6DAB5A33}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{1D3EBC0E-ECEC-4CFA-A929-CA685678371A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D3EBC0E-ECEC-4CFA-A929-CA685678371A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D3EBC0E-ECEC-4CFA-A929-CA685678371A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8D72D7D4-0C9B-4889-88C2-4C2BAC4CB55C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8D72D7D4-0C9B-4889-88C2-4C2BAC4CB55C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8D72D7D4-0C9B-4889-88C2-4C2BAC4CB55C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8D72D7D4-0C9B-4889-88C2-4C2BAC4CB55C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9402E7D0-BFCF-4D22-98D6-0C8C6DAB5A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9402E7D0-BFCF-4D22-98D6-0C8C6DAB5A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9402E7D0-BFCF-4D22-98D6-0C8C6DAB5A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9402E7D0-BFCF-4D22-98D6-0C8C6DAB5A33}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
