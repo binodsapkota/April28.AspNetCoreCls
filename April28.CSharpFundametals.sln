@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InheritanceAndPolymorphism"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GenricsAndCollections", "GenricsAndCollections\GenricsAndCollections.csproj", "{306AAC47-7913-4B14-AC16-3285408377F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringAndLinq", "StringAndLinq\StringAndLinq.csproj", "{80D7A067-D8AC-4654-AFA7-18C0108E2AEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncAsyncExample", "SyncAsyncExample\SyncAsyncExample.csproj", "{1E905413-0F62-4310-9E15-F0BC964DA08A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{306AAC47-7913-4B14-AC16-3285408377F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{306AAC47-7913-4B14-AC16-3285408377F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{306AAC47-7913-4B14-AC16-3285408377F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80D7A067-D8AC-4654-AFA7-18C0108E2AEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80D7A067-D8AC-4654-AFA7-18C0108E2AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80D7A067-D8AC-4654-AFA7-18C0108E2AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80D7A067-D8AC-4654-AFA7-18C0108E2AEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1E905413-0F62-4310-9E15-F0BC964DA08A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1E905413-0F62-4310-9E15-F0BC964DA08A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1E905413-0F62-4310-9E15-F0BC964DA08A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1E905413-0F62-4310-9E15-F0BC964DA08A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
