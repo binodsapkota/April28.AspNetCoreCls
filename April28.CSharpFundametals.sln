@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StringAndLinq", "StringAndL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncAsyncExample", "SyncAsyncExample\SyncAsyncExample.csproj", "{1E905413-0F62-4310-9E15-F0BC964DA08A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreChapter", "EFCoreChapter\EFCoreChapter.csproj", "{1CAB2DF8-B15F-4029-A54E-DE544B727C92}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{1E905413-0F62-4310-9E15-F0BC964DA08A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E905413-0F62-4310-9E15-F0BC964DA08A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1E905413-0F62-4310-9E15-F0BC964DA08A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CAB2DF8-B15F-4029-A54E-DE544B727C92}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CAB2DF8-B15F-4029-A54E-DE544B727C92}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CAB2DF8-B15F-4029-A54E-DE544B727C92}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CAB2DF8-B15F-4029-A54E-DE544B727C92}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
