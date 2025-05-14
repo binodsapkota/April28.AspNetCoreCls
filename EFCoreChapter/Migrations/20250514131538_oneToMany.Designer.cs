@@ -3,6 +3,7 @@ using EFCoreChapter;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCoreChapter.Migrations
 {
     [DbContext(typeof(StudentDbContext))]
-    partial class StudentDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250514131538_oneToMany")]
+    partial class oneToMany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -20,23 +23,6 @@ namespace EFCoreChapter.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("EFCoreChapter.Model.Course", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("CourseName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Course");
-                });
 
             modelBuilder.Entity("EFCoreChapter.Model.Student", b =>
                 {
@@ -63,24 +49,6 @@ namespace EFCoreChapter.Migrations
                     b.HasIndex("TeacherId");
 
                     b.ToTable("Students");
-                });
-
-            modelBuilder.Entity("EFCoreChapter.Model.StudentCourse", b =>
-                {
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.HasKey("StudentId", "CourseId");
-
-                    b.HasIndex("CourseId");
-
-                    b.ToTable("StudentCourse");
                 });
 
             modelBuilder.Entity("EFCoreChapter.Model.StudentProfile", b =>
@@ -138,25 +106,6 @@ namespace EFCoreChapter.Migrations
                     b.Navigation("Teacher");
                 });
 
-            modelBuilder.Entity("EFCoreChapter.Model.StudentCourse", b =>
-                {
-                    b.HasOne("EFCoreChapter.Model.Course", "Course")
-                        .WithMany("StudentCourses")
-                        .HasForeignKey("CourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("EFCoreChapter.Model.Student", "Student")
-                        .WithMany("StudentCourses")
-                        .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
-
-                    b.Navigation("Student");
-                });
-
             modelBuilder.Entity("EFCoreChapter.Model.StudentProfile", b =>
                 {
                     b.HasOne("EFCoreChapter.Model.Student", "Student")
@@ -168,17 +117,10 @@ namespace EFCoreChapter.Migrations
                     b.Navigation("Student");
                 });
 
-            modelBuilder.Entity("EFCoreChapter.Model.Course", b =>
-                {
-                    b.Navigation("StudentCourses");
-                });
-
             modelBuilder.Entity("EFCoreChapter.Model.Student", b =>
                 {
                     b.Navigation("Profile")
                         .IsRequired();
-
-                    b.Navigation("StudentCourses");
                 });
 
             modelBuilder.Entity("EFCoreChapter.Model.Teacher", b =>
