@@ -64,7 +64,7 @@ namespace MyFirstMvcApp.Controllers
             var teacher = await _context.Teacher.FindAsync(id);
             return View(teacher);
         }
-        [HttpPost("Delete")]
+        [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id,Teacher model)
         {
             var teacher = await _context.Teacher.FindAsync(id);
@@ -77,6 +77,21 @@ namespace MyFirstMvcApp.Controllers
                 return RedirectToAction("Index");
             
             return View(teacher);
+        }
+        [Route("{lang}/Teacher/Message/{text}")]
+        public IActionResult Test(string lang, string text)
+        {
+            switch (lang)
+            {
+                case "np":
+                    text = "Nepali text";
+                    break;
+
+                default:
+                    text = "English text";
+                    break;
+            }
+            return Content(text);
         }
     }
 }
