@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SyncAsyncExample", "SyncAsy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFCoreChapter", "EFCoreChapter\EFCoreChapter.csproj", "{1CAB2DF8-B15F-4029-A54E-DE544B727C92}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentCourseApp", "StudentCourseApp\StudentCourseApp.csproj", "{3A3EF3D6-F5A7-4FA0-8A61-74C97E86B583}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFirstMvcApp", "MyFirstMvcApp\MyFirstMvcApp.csproj", "{9CAD89D6-C48C-4ACE-978D-9921ABEEDD1E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{1CAB2DF8-B15F-4029-A54E-DE544B727C92}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CAB2DF8-B15F-4029-A54E-DE544B727C92}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CAB2DF8-B15F-4029-A54E-DE544B727C92}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3A3EF3D6-F5A7-4FA0-8A61-74C97E86B583}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A3EF3D6-F5A7-4FA0-8A61-74C97E86B583}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A3EF3D6-F5A7-4FA0-8A61-74C97E86B583}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A3EF3D6-F5A7-4FA0-8A61-74C97E86B583}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CAD89D6-C48C-4ACE-978D-9921ABEEDD1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CAD89D6-C48C-4ACE-978D-9921ABEEDD1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CAD89D6-C48C-4ACE-978D-9921ABEEDD1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CAD89D6-C48C-4ACE-978D-9921ABEEDD1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

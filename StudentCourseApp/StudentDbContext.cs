@@ -1,5 +1,6 @@
-﻿using EFCoreChapter.Model;
+﻿
 using Microsoft.EntityFrameworkCore;
+using StudentCourseApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,8 @@ namespace EFCoreChapter
 {
     public class StudentDbContext : DbContext
     {
-        public StudentDbContext()
+        public StudentDbContext(DbContextOptions<StudentDbContext> options)
+            :base(options)
         {
 
         }
@@ -52,11 +54,11 @@ namespace EFCoreChapter
         }
 
         //we need a connection string to connect to the database
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseSqlServer("Server=.;Database=StudentDb;Integrated Security=true;TrustServerCertificate=true;");
-            //for local db 
-            //optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Lenovo\\source\\repos\\April28.CSharpFundametals\\EFCoreChapter\\Data\\SchoolDb.mdf;Integrated Security=True;Connect Timeout=30");
-        }
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlServer("Server=.;Database=StudentDb;Integrated Security=true;TrustServerCertificate=true;");
+        //    //for local db 
+        //    //optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\Lenovo\\source\\repos\\April28.CSharpFundametals\\EFCoreChapter\\Data\\SchoolDb.mdf;Integrated Security=True;Connect Timeout=30");
+        //}
     }
 }

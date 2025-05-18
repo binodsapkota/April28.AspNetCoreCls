@@ -7,7 +7,7 @@ using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EFCoreChapter.Model
+namespace StudentCourseApp.Model
 {
     [Table("Students")]
     //by default class name is used as table name
