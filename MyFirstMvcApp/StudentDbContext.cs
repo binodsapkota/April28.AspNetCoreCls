@@ -52,6 +52,7 @@ namespace MyFirstMvcApp
                 .HasForeignKey(sc => sc.CourseId);
 
         }
+        public DbSet<MyFirstMvcApp.Model.RegisterModel> RegisterModel { get; set; } = default!;
 
         //we need a connection string to connect to the database
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

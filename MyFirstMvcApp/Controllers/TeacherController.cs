@@ -91,7 +91,7 @@ namespace MyFirstMvcApp.Controllers
                     text = "English text";
                     break;
             }
-            return Content(text);
+            return Json(text);
         }
     }
 }

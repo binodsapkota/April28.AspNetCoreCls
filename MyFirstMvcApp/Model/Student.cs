@@ -17,14 +17,14 @@ namespace MyFirstMvcApp.Model
         public int Id { get; set; }
         [StringLength(150), Column("StudentName", TypeName = "varchar")]
         public string Name { get; set; }
-        [Range(1, 100)]
+        [Range(1, 100,ErrorMessage ="Please Input Age Between 1 to 100")]
         public int Age { get; set; }
-
+       
         public int TeacherId { get; set; }
 
         //foreign key   
-        public Teacher Teacher { get; set; }
-        public StudentProfile Profile { get; set; }
+        public Teacher? Teacher { get; set; }
+        public StudentProfile? Profile { get; set; }
         public List<StudentCourse>? StudentCourses { get; set; }
     }
 
