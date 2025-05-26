@@ -17,12 +17,12 @@ namespace MyFirstMvcApp.Model
 
         [EmailAddress(ErrorMessage = "Please Input Valid Email Address"), Required,DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        [Url]
-        public string WebUrl { get; set; }
+        //[Url]
+        //public string WebUrl { get; set; }
 
-        [DataType(DataType.Date)]
-        [AgeValidation(MinimumAge = 18, MaximumAge = 60, ErrorMessage = "You must be at least 18 years old to register.")]
-        public DateTime DOB { get; set; }
+        //[DataType(DataType.Date)]
+        //[AgeValidation(MinimumAge = 18, MaximumAge = 60, ErrorMessage = "You must be at least 18 years old to register.")]
+        //public DateTime DOB { get; set; }
 
         [DataType(DataType.Password)]
         [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$",

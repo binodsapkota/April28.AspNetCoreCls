@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using MyFirstMvcApp.Models;
+using MyFirstMvcApp.Services;
 using System.Diagnostics;
 
 namespace MyFirstMvcApp.Controllers
@@ -7,17 +8,18 @@ namespace MyFirstMvcApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly ITimeService _timeService;
+        public HomeController(ILogger<HomeController> logger,ITimeService timeService)
         {
             _logger = logger;
+            _timeService = timeService;
         }
 
         public IActionResult Index()
         {
             var model = new HomeModel
             {
-                Title = "Hello All! Welcome",
+                Title = "Hello All! Welcome Server Time "+_timeService.GetCurrentTime(),
                 Description = "I am making the field dynamic",
                 Link = "https://google.com",
                 LinkText = "Search More"

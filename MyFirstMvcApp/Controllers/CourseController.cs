@@ -1,21 +1,27 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyFirstMvcApp.Model;
+using MyFirstMvcApp.Services;
 
 namespace MyFirstMvcApp.Controllers
 {
     public class CourseController : Controller
     {
         //private readonly ILogger<TeacherController> _logger;
-        private readonly StudentDbContext _context;
-        public CourseController(StudentDbContext context)
+        //private readonly StudentDbContext _context;
+        private readonly ICourseService _courseService;
+        private readonly ITimeService _timeService;
+        public CourseController(ICourseService service,ITimeService timeService)
         {
-            _context = context;
+            _courseService = service;
+            _timeService = timeService;
+
         }
         public async Task<IActionResult> Index()
         {
             List<Course> teachers = new List<Course>();
-            teachers = await _context.Courses.ToListAsync();
+            teachers = await _courseService.GetAllCoursesAsync();
+            TempData["message"] = $"Controller Time :{ _timeService.GetCurrentTime()}, service time :{await _courseService.GetDateTime()}";
             return View(teachers);
         }
 
@@ -31,8 +37,7 @@ namespace MyFirstMvcApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Courses.Add(model);
-                await _context.SaveChangesAsync();
+                await _courseService.CreateCourseAsync(model);
                 TempData["message"] = $"{model.CourseName} Created Successfully";
                 return RedirectToAction("Index");
             }
@@ -42,13 +47,13 @@ namespace MyFirstMvcApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            var course = await _context.Courses.FindAsync(id);
+            var course = await _courseService.GetCourseByIdAsync(id);
             return View(course);
         }
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var course = await _context.Courses.FindAsync(id);
+            var course = await _courseService.GetCourseByIdAsync(id);
             return View(course);
         }
         [HttpPost]
@@ -59,8 +64,7 @@ namespace MyFirstMvcApp.Controllers
 
             if (ModelState.IsValid)
             {
-                _context.Courses.Update(model);
-                await _context.SaveChangesAsync();
+                await _courseService.UpdateCourseAsync(id, model);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -69,19 +73,18 @@ namespace MyFirstMvcApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var teacher = await _context.Courses.FindAsync(id);
+            var teacher = await _courseService.GetCourseByIdAsync(id);
             return View(teacher);
         }
         [HttpPost("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id, Course model)
         {
-            var teacher = await _context.Courses.FindAsync(id);
+            var teacher = await _courseService.GetCourseByIdAsync(id);
             if (teacher == null)
                 return NotFound();
 
 
-            _context.Courses.Remove(teacher);
-            await _context.SaveChangesAsync();
+            await _courseService.DeleteCourseAsync(id);
             return RedirectToAction("Index");
 
             return View(teacher);

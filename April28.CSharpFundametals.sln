@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudentCourseApp", "Student
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyFirstMvcApp", "MyFirstMvcApp\MyFirstMvcApp.csproj", "{9CAD89D6-C48C-4ACE-978D-9921ABEEDD1E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspnetIdentityAuthentication", "AspnetIdentityAuthentication\AspnetIdentityAuthentication.csproj", "{2B7E1991-9D45-4347-BCAD-736EAE46E002}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{9CAD89D6-C48C-4ACE-978D-9921ABEEDD1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9CAD89D6-C48C-4ACE-978D-9921ABEEDD1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9CAD89D6-C48C-4ACE-978D-9921ABEEDD1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B7E1991-9D45-4347-BCAD-736EAE46E002}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B7E1991-9D45-4347-BCAD-736EAE46E002}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B7E1991-9D45-4347-BCAD-736EAE46E002}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B7E1991-9D45-4347-BCAD-736EAE46E002}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

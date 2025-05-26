@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyFirstMvcApp.Model;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyFirstMvcApp
 {
-    public class StudentDbContext : DbContext
+    public class StudentDbContext : IdentityDbContext<ApplicationUser>
     {
         public StudentDbContext(DbContextOptions<StudentDbContext> options)
             : base(options)
@@ -25,34 +26,34 @@ namespace MyFirstMvcApp
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Student>()
-                .HasOne(s => s.Profile)
-                .WithOne(sp => sp.Student)
-                .HasForeignKey<StudentProfile>(sp => sp.StudentId)
-                ;
+            //modelBuilder.Entity<Student>()
+            //    .HasOne(s => s.Profile)
+            //    .WithOne(sp => sp.Student)
+            //    .HasForeignKey<StudentProfile>(sp => sp.StudentId)
+            //    ;
 
-            modelBuilder.Entity<Teacher>()
-                .HasMany(t => t.Students)
-                .WithOne(s => s.Teacher)
-                .HasForeignKey(s => s.TeacherId);
+            //modelBuilder.Entity<Teacher>()
+            //    .HasMany(t => t.Students)
+            //    .WithOne(s => s.Teacher)
+            //    .HasForeignKey(s => s.TeacherId);
 
 
 
-            modelBuilder.Entity<StudentCourse>()
-                .HasKey(sc => new { sc.StudentId, sc.CourseId });
+            //modelBuilder.Entity<StudentCourse>()
+            //    .HasKey(sc => new { sc.StudentId, sc.CourseId });
 
-            modelBuilder.Entity<StudentCourse>()
-                .HasOne(sc => sc.Student)
-                .WithMany(s => s.StudentCourses)
-                .HasForeignKey(sc => sc.StudentId);
+            //modelBuilder.Entity<StudentCourse>()
+            //    .HasOne(sc => sc.Student)
+            //    .WithMany(s => s.StudentCourses)
+            //    .HasForeignKey(sc => sc.StudentId);
 
-            modelBuilder.Entity<StudentCourse>()
-                .HasOne(sc => sc.Course)
-                .WithMany(c => c.StudentCourses)
-                .HasForeignKey(sc => sc.CourseId);
+            //modelBuilder.Entity<StudentCourse>()
+            //    .HasOne(sc => sc.Course)
+            //    .WithMany(c => c.StudentCourses)
+            //    .HasForeignKey(sc => sc.CourseId);
 
         }
-        public DbSet<MyFirstMvcApp.Model.RegisterModel> RegisterModel { get; set; } = default!;
+        //public DbSet<MyFirstMvcApp.Model.RegisterModel> RegisterModel { get; set; } = default!;
 
         //we need a connection string to connect to the database
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
