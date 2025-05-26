@@ -1,4 +1,7 @@
+using AspnetIdentityAuthentication;
 using AspnetIdentityAuthentication.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyFirstMvcApp;
@@ -20,6 +23,22 @@ builder.Services.ConfigureApplicationCookie(options =>
     options.LogoutPath = "/Account/Logout";
     options.AccessDeniedPath = "/Account/AccessDenied";
 });
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme);
+
+builder.Services.AddAuthorization(option =>
+{
+    option.AddPolicy("AdminOnly", policy => {
+        policy.RequireRole("admin");
+        policy.RequireRole("manager");
+    });
+
+    option.AddPolicy("MinimumAge", policy =>
+    {
+        policy.Requirements.Add(new MinimumAgeRequirement(18));
+    });
+});
+
+builder.Services.AddSingleton<IAuthorizationHandler, MinimumAgeHandler>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

@@ -1,7 +1,10 @@
 ﻿using AspnetIdentityAuthentication.Models;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualBasic;
+using System.Security.Claims;
 
 
 namespace AspnetIdentityAuthentication.Controllers
@@ -40,7 +43,7 @@ namespace AspnetIdentityAuthentication.Controllers
 
                 //lets check if the role admin exists
 
-                if(!await _roleManager.RoleExistsAsync(model.Role))
+                if (!await _roleManager.RoleExistsAsync(model.Role))
                 {
                     await _roleManager.CreateAsync(new IdentityRole(model.Role));
                 }
@@ -71,9 +74,34 @@ namespace AspnetIdentityAuthentication.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, isPersistent: false, false);
-                if (result.Succeeded)
-                    return RedirectToAction("index", "home");
+                var user = await _userManager.FindByEmailAsync(model.UserName);
+
+                if (user == null || !await _userManager.CheckPasswordAsync(user, model.Password))
+                {
+                    ModelState.AddModelError("", "Invalid login attempt.");
+                    return View(model);
+                }
+                var roles = await _userManager.GetRolesAsync(user);
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, model.UserName),
+                    new Claim(ClaimTypes.Email, model.UserName),
+                    new Claim("FullName",user.FullName), // You can replace this with actual full name if available
+                    new Claim("Age","18")
+                };
+
+                foreach (var role in roles)
+                {
+                    new Claim(ClaimTypes.Role, role); // Default role, you can modify this based on your logic
+                }
+
+                var identity = new ClaimsIdentity(claims,IdentityConstants.ApplicationScheme);
+                var principal = new ClaimsPrincipal(identity);
+
+                await HttpContext.SignInAsync(IdentityConstants.ApplicationScheme,principal);
+
+
+                return RedirectToAction("index", "home");
             }
             return View();
         }
