@@ -20,12 +20,14 @@ namespace MyFirstMvcApp.Controllers
         }
 
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create()
         {
             var teacher = new Teacher() { Name = "" };
             return View(teacher);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Teacher model)
         {
             if (ModelState.IsValid)

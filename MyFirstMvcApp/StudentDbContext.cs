@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace MyFirstMvcApp
 {
-    public class StudentDbContext : IdentityDbContext<ApplicationUser>
+    public class StudentDbContext : DbContext
     {
         public StudentDbContext(DbContextOptions<StudentDbContext> options)
             : base(options)

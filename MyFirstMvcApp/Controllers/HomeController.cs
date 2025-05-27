@@ -5,6 +5,7 @@ using System.Diagnostics;
 
 namespace MyFirstMvcApp.Controllers
 {
+   
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -17,6 +18,8 @@ namespace MyFirstMvcApp.Controllers
 
         public IActionResult Index()
         {
+            _logger.LogInformation("Index action called at {Time}", DateTime.Now);
+
             var model = new HomeModel
             {
                 Title = "Hello All! Welcome Server Time "+_timeService.GetCurrentTime(),
@@ -24,6 +27,7 @@ namespace MyFirstMvcApp.Controllers
                 Link = "https://google.com",
                 LinkText = "Search More"
             };
+            throw new Exception("My test exception");
 
             return View(model);
         }

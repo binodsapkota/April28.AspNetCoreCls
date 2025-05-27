@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MyFirstMvcApp;
+using MyFirstMvcApp.Filters;
 using MyFirstMvcApp.Model;
 using MyFirstMvcApp.Services;
+using Serilog;
 
 internal class Program
 {
@@ -15,9 +17,9 @@ internal class Program
         builder.Services.AddDbContext<StudentDbContext>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<StudentDbContext>()
-            .AddDefaultTokenProviders();
+        //builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+        //    .AddEntityFrameworkStores<StudentDbContext>()
+        //    .AddDefaultTokenProviders();
 
 
 
@@ -32,7 +34,13 @@ internal class Program
             3. Singleton - A single instance is created and shared throughout the application.
          */
 
-       
+
+        Log.Logger = new LoggerConfiguration()
+                    .WriteTo.Console()
+                    .WriteTo.File("logs/myapp.txt", rollingInterval: RollingInterval.Day)
+                    .CreateLogger();
+
+        builder.Host.UseSerilog();
 
         // Authentication
         builder.Services.ConfigureApplicationCookie(options =>
@@ -43,16 +51,26 @@ internal class Program
         });
 
         // Add services to the container.
-        builder.Services.AddControllersWithViews();
+        builder.Services.AddControllersWithViews(options =>
+        {
+            options.Filters.Add<CustomExceptionFilter>();
+        });
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
-        if (!app.Environment.IsDevelopment())
+
+        if (app.Environment.IsDevelopment())
+        {
+            app.UseDeveloperExceptionPage();
+            // app.UseExceptionHandler("/Home/Error");
+        }
+        else
         {
             app.UseExceptionHandler("/Home/Error");
-            // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
             app.UseHsts();
         }
+
+
 
         app.UseHttpsRedirection();
         app.UseRouting();
