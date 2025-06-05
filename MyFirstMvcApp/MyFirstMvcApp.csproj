@@ -26,6 +26,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Areas\Controllers\" />
+    <Folder Include="Areas\Public\Data\" />
+    <Folder Include="Areas\Public\Models\" />
+    <Folder Include="Areas\Views\" />
     <Folder Include="NewFolder\" />
   </ItemGroup>
 

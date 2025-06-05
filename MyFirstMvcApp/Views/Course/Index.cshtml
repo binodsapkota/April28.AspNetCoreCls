@@ -3,12 +3,14 @@
 @{
     ViewData["Title"] = "Index";
     string message = (TempData["message"] ?? "").ToString();
+
+    var user = Context.Session.GetString("UserName")??"Guest";
 }
 
-<h1>Index</h1>
+<h1>Index - @user</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create New</a> 
 </p>
 @if (string.IsNullOrEmpty(message) == false)
 {

@@ -21,7 +21,13 @@ internal class Program
         //    .AddEntityFrameworkStores<StudentDbContext>()
         //    .AddDefaultTokenProviders();
 
-
+        builder.Services.AddDistributedMemoryCache();
+        builder.Services.AddSession(options =>
+        {
+            options.IdleTimeout = TimeSpan.FromMinutes(20);
+            options.Cookie.HttpOnly = true;
+            options.Cookie.IsEssential = true;
+        });
 
         builder.Services.AddTransient<ICourseService, CourseService>();
         builder.Services.AddScoped<ITimeService, TimeService>();
@@ -70,8 +76,8 @@ internal class Program
             app.UseHsts();
         }
 
-
-
+        app.UseMiddleware<RequestTimingMiddleware>();
+        app.UseSession();
         app.UseHttpsRedirection();
         app.UseRouting();
 
@@ -79,13 +85,16 @@ internal class Program
         app.UseAuthorization();
 
         app.MapStaticAssets();
+       
 
         app.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}")
             .WithStaticAssets();
 
-
+         app.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home1}/{action=Index}/{id?}");
         app.Run();
     }
 }
