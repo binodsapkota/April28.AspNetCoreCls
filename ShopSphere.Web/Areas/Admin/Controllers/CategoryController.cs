@@ -57,7 +57,7 @@ namespace ShopSphere.Web.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] CategoryModel categoryModel)
+        public async Task<IActionResult> Create( CategoryModel categoryModel)
         {
             if (ModelState.IsValid)
             {

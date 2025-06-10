@@ -10,6 +10,6 @@
 
         // Foreign Key to Category
         public int CategoryId { get; set; }
-        public CategoryModel Category { get; set; } = null!;
+        public CategoryModel? Category { get; set; } = null!;
     }
 }

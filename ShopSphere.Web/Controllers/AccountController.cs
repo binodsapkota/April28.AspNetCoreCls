@@ -68,10 +68,14 @@ namespace ShopSphere.Web.Controllers
 
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
-                principal);
+                principal, new AuthenticationProperties
+                {
+                    IsPersistent = model.RememberMe
+
+                });
 
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Dashboard");
 
         }
         [HttpGet]
