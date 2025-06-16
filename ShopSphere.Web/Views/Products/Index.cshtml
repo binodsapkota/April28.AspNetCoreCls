@@ -22,6 +22,7 @@
                 @Html.DisplayNameFor(model => model.Price)
             </th>
             <th>
+
                 @Html.DisplayNameFor(model => model.ImageUrl)
             </th>
             <th>
@@ -43,7 +44,7 @@
                 @Html.DisplayFor(modelItem => item.Price)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.ImageUrl)
+                    <img src="@Url.Content(item.ImageUrl)" alt="Product Image" class="img-thumbnail mb-3" style="max-height: 100px;" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Category.Id)

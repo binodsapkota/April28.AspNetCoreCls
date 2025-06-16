@@ -1,4 +1,5 @@
 using Chapter35.BlogAppBackend;
+using Chapter35.BlogAppBackend.Queries;
 using Chapter35.BlogAppBackend.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -19,6 +20,8 @@ builder.Services.AddCors(options =>
 
 builder.Services.AddDbContext<BlogDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 
 builder.Services.Configure<JwtSettings>(
     builder.Configuration.GetSection("JwtSettings"));
@@ -49,7 +52,17 @@ builder.Services.AddAuthentication("Bearer")
     });
 
 // Add services to the container.
-
+builder.Services
+    .AddGraphQLServer()
+    .AddQueryType<Query>()
+    .AddMutationType<Mutation>()
+    ///.AddSubscriptionType<Subscriptions.Subscription>()
+    .AddInMemorySubscriptions()
+    .AddFiltering()
+    .AddSorting()
+    .AddProjections()
+    .AddAuthorization()
+    ; // Add Projections support
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -81,7 +94,7 @@ builder.Services.AddSwaggerGen(c =>
 
 
 var app = builder.Build();
-
+app.MapGraphQL();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

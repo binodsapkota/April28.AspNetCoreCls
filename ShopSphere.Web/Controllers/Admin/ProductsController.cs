@@ -8,18 +8,21 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ShopSphere.Web.Data;
 using ShopSphere.Web.Models;
+using ShopSphere.Web.ViewModels;
 
 namespace ShopSphere.Web.Controllers.Admin
 {
-   
+
     [Authorize]
     public class ProductsController : Controller
     {
+        private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly AppDbContext _context;
 
-        public ProductsController(AppDbContext context)
+        public ProductsController(AppDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _context = context;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Admin/Products
@@ -60,16 +63,57 @@ namespace ShopSphere.Web.Controllers.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,ImageUrl,CategoryId")] ProductModel productModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Description,Price,ImageUrl,ImageFile,CategoryId")] ProductViewModel productModel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(productModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //product image part
+                string imagePath = "";
+                if (productModel.ImageFile != null)
+                {
+                    imagePath =await SaveImage( productModel.ImageFile);
+
+
+                    var model = new ProductModel
+                    {
+                        Name = productModel.Name,
+                        Description = productModel.Description,
+                        Price = productModel.Price,
+                        ImageUrl = imagePath,
+                        CategoryId = productModel.CategoryId
+                    };
+
+                    _context.Add(model);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", productModel.CategoryId);
             return View(productModel);
+        }
+
+        private async Task<string> SaveImage(IFormFile? file)
+        {
+            //we have to save file
+            //we have update image url(relative) /images/file.ext
+            //for filename we use guid
+            string fileName = Guid.NewGuid() + Path.GetExtension(file.FileName);//eg .png, .jpg
+                                                                                                  //store this file
+                                                                                                  //first check directory
+            string uploadDir = Path.Combine(_webHostEnvironment.WebRootPath, "images", "products");
+            if (!Directory.Exists(uploadDir))
+            {
+                Directory.CreateDirectory(uploadDir);
+            }
+            //save file to uploadDir
+            string filePath = Path.Combine(uploadDir, fileName);
+
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(fileStream);
+            }
+            //update imagePath
+            return "/images/products/" + fileName; //relative path
         }
 
         // GET: Admin/Products/Edit/5
@@ -86,7 +130,18 @@ namespace ShopSphere.Web.Controllers.Admin
                 return NotFound();
             }
             ViewData["CategoryId"] = new SelectList(_context.Categories, "Id", "Name", productModel.CategoryId);
-            return View(productModel);
+            // Map ProductModel to ProductViewModel
+            var model = new ProductViewModel
+            {
+                Description = productModel.Description,
+                Price = productModel.Price,
+                Name = productModel.Name,
+                ImageUrl = productModel.ImageUrl,
+                CategoryId = productModel.CategoryId,
+                Id = productModel.Id
+
+            };
+            return View(model);
         }
 
         // POST: Admin/Products/Edit/5
@@ -94,7 +149,7 @@ namespace ShopSphere.Web.Controllers.Admin
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,ImageUrl,CategoryId")] ProductModel productModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price,ImageUrl,ImageFile,CategoryId")] ProductViewModel productModel)
         {
             if (id != productModel.Id)
             {
@@ -105,7 +160,27 @@ namespace ShopSphere.Web.Controllers.Admin
             {
                 try
                 {
-                    _context.Update(productModel);
+                    var model =await _context.Products.FindAsync(productModel.Id); 
+                    if (!string.IsNullOrEmpty(productModel.ImageUrl))
+                    {
+                        string filePath = _webHostEnvironment.WebRootPath + productModel.ImageUrl;
+                        if (System.IO.File.Exists(filePath))
+                        {
+                            System.IO.File.Delete(filePath);//
+                        }
+                        
+                    }
+                    if(productModel.ImageFile!=null)
+                    {
+                        string imagePath = await SaveImage(productModel.ImageFile);
+                        model.ImageUrl = imagePath;
+                    }
+                    model.Name = productModel.Name;
+                    model.Price = productModel.Price;
+                    model.Description = productModel.Description;
+                    
+
+                    _context.Update(model);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

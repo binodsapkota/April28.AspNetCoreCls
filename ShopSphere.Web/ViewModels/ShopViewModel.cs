@@ -2,6 +2,6 @@
 {
     public class ShopViewModel
     {
-        public List<ItemViewModel> Items { get; set; }
+        public PaginatedList<ItemViewModel> PaginatedItems { get; set; }
     }
 }

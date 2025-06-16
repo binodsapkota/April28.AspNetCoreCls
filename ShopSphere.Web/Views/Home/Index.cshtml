@@ -14,17 +14,26 @@
     </div>
 </header>
 <section class="py-5">
+    <div class="row">
+        <form method="get" asp-action="index" class="d-flex">
+            <input type="text" name="search" class="form-control" placeholder="Search by name or description" value="@Context.Request.Query["search"]" />
+            <button type="submit" class="btn btn-primary "> Search</button>
+        </form>
+    </div>
+</section>
+<section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
+        <span>PageIndex @Model.PaginatedItems.PageIndex PageSize @Model.PaginatedItems.TotalPages</span>
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
 
-            @foreach (var item in Model.Items)
+            @foreach (var item in Model.PaginatedItems)
             {
 
-
+                string imageUrl = item.ImageUrl ?? @"https://dummyimage.com/450x300/dee2e6/6c757d.jpg";
                 <div class="col mb-5">
                     <div class="card h-100">
                         <!-- Product image-->
-                        <img class="card-img-top" src='https://dummyimage.com/450x300/dee2e6/6c757d.jpg' alt="..." />
+                        <img class="card-img-top" src='@imageUrl' alt="..." />
                         <!-- Product details-->
                         <div class="card-body p-4">
                             <div class="text-center">
@@ -42,5 +51,28 @@
                 </div>
             }
         </div>
+
+        @if (Model.PaginatedItems.TotalPages > 1)
+        {
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    @if (Model.PaginatedItems.HasPreviousPage)
+                    {
+                        <li class="page-item"><a class="page-link" asp-action="index" asp-route-page="1">Previous</a></li>
+                    }
+                    @for (int i = 1; i <= Model.PaginatedItems.TotalPages; i++)
+                    {
+                        <li class="page-item"><a class="page-link" asp-action="index" asp-route-page="@i">@i</a></li>
+                    }
+
+                    
+                   
+                    @if (Model.PaginatedItems.HasNextPage)
+                    {
+                        <li class="page-item"><a class="page-link" asp-action="index" asp-route-page="@(Model.PaginatedItems.PageIndex+1)">Next</a></li>
+                    }
+            </ul>
+        </nav>
+        }
     </div>
 </section>

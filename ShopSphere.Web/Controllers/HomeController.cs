@@ -16,27 +16,48 @@ namespace ShopSphere.Web.Controllers
             _logger = logger;
             _context = context;
         }
-
-        public IActionResult Index()
+        //j?=> nullable
+        //pageSize=4 => default page size=> optional parameter
+        public async Task<IActionResult> Index(string? search, int? categoryId, int page = 1, int pageSize = 4)
         {
-            var items = _context.Products
-                .Select(p => new ItemViewModel
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Price = p.Price,
-                    ImageUrl = p.ImageUrl
-                })
-                .ToList();
-            var viewModel = new ShopViewModel { Items = items };
+            var query = _context.Products
+                .AsQueryable();
+            #region filter
+            if (!string.IsNullOrEmpty(search))
+            {
+                query = query.Where(p => p.Name.Contains(search) || p.Description.Contains(search));
+            }
+            if (categoryId.HasValue)
+            {
+                query = query.Where(p => p.CategoryId == categoryId.Value);
+
+                //final query is always append with previous query
+
+            } 
+            #endregion
+
+
+            var finalQuery = query.Select(p => new ItemViewModel
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Price = p.Price,
+                ImageUrl = p.ImageUrl
+            });
+
+
+            var viewModel = new ShopViewModel
+            {
+                PaginatedItems = await PaginatedList<ItemViewModel>.Create(finalQuery, page, pageSize)
+            };
             return View(viewModel);
         }
 
         [HttpGet()]
         [Route("/home/{id}/details")]
-        public async  Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
-            var model =await _context.Products.FindAsync(id);
+            var model = await _context.Products.FindAsync(id);
             if (model == null)
             {
                 return NotFound();
