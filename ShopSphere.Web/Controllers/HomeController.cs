@@ -54,7 +54,6 @@ namespace ShopSphere.Web.Controllers
         }
 
         [HttpGet()]
-        [Route("/home/{id}/details")]
         public async Task<IActionResult> Details(int id)
         {
             var model = await _context.Products.FindAsync(id);
@@ -65,6 +64,7 @@ namespace ShopSphere.Web.Controllers
             return View(model);
         }
 
+       
         public IActionResult Privacy()
         {
             return View();

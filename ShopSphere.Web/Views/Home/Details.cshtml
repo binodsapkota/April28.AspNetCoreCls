@@ -28,7 +28,9 @@
         {
             <p><strong>Category:</strong> @Model.Category.Name</p>
         }
-
-        <button class="btn btn-primary">Add to Cart</button>
+        <form asp-controller="Cart" asp-action="AddToCart">
+            <input type="hidden"  asp-for="Id" value="@Model.Id"/>
+            <button type="submit" class="btn btn-primary">Add to Cart</button>
+        </form>
     </div>
 </div>
